@@ -31,8 +31,11 @@ describe Contact do
   end
 
   it "returns a contact's full name as a string" do
-    contact = build(:contact)
-    expect(contact.name).to eq 'John Doe'
+    contact = build(
+      :contact,
+      firstname: 'Jane',
+      lastname: 'Smith',)
+    expect(contact.name).to eq 'Jane Smith'
   end
 
   it "has three phone numbers" do
