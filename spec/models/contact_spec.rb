@@ -35,19 +35,23 @@ describe Contact do
     expect(contact.name).to eq 'John Doe'
   end
 
+  it "has three phone numbers" do
+    expect(create(:contact).phones.count).to eq 3
+  end
+
   describe 'filter last name by letter' do
     before :each do
-      @smith = Contact.create(
+      @smith = create(:contact,
         firstname: 'John',
         lastname: 'Smith',
         email: 'jsmith@example.com'
       )
-      @jones = Contact.create(
+      @jones = create(:contact,
         firstname: 'Tim',
         lastname: 'Jones',
         email: 'tjones@example.com'
       )
-      @johnson = Contact.create(
+      @johnson = create(:contact,
         firstname: 'John',
         lastname: 'Johnson',
         email: 'jjohnson@example.com'
