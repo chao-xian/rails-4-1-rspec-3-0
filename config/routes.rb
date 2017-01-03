@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   resources :users
   resources :sessions
 
-  resources :contacts
+  resources :contacts do
+    resources :phones
+  end
+  resources :phones
   patch '/contacts/:id/hide_contact', to: 'contacts#hide_contact'
 
 
