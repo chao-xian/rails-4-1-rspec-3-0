@@ -42,6 +42,14 @@ describe Contact do
     expect(create(:contact).phones.count).to eq 3
   end
 
+  it "returns comma separated values" do
+    create(:contact,
+      firstname: 'Bruce',
+      lastname: 'Wayne',
+      email: 'bruce@thebatcave.org')
+    expect(Contact.to_csv).to match /Bruce Wayne,bruce@thebatcave.org/
+  end
+
   describe 'filter last name by letter' do
     before :each do
       @smith = create(

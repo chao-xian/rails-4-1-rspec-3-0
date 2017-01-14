@@ -7,8 +7,19 @@ class ContactsController < ApplicationController
   def index
     if params[:letter]
       @contacts = Contact.by_letter(params[:letter])
+      respond_to do |format|
+        format.html
+      end
     else
       @contacts = Contact.order('lastname, firstname')
+      respond_to do |format|
+        format.html
+        format.csv do
+          send_data @contacts.to_csv,
+            type: 'text/csv; charset=iso-8859-1; header=present',
+            disposition: 'attachment; filename=contacts.csv'
+        end
+      end
     end
   end
 

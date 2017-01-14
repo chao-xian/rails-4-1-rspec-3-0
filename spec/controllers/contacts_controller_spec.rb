@@ -14,6 +14,22 @@ describe ContactsController do
         get :index, letter: 'S'
         expect(response).to render_template :index
       end
+
+      describe "CSV output" do
+        it "returns a CSV file" do
+          get :index, format: :csv
+          expect(response.headers['Content-Type']).to match 'text/csv'
+        end
+
+        it 'returns content' do
+          create(:contact,
+            firstname: 'Bruce',
+            lastname: 'Wayne',
+            email: 'bruce@thebatcave.org')
+          get :index, format: :csv
+          expect(response.body).to match /Bruce Wayne,bruce@thebatcave.org/
+        end
+      end
     end
 
     context 'without params[:letter]' do
